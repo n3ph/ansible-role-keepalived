@@ -1,0 +1,7 @@
+---
+
+- name: systemd | reload keepalived
+  systemd:
+    name: keepalived
+    state: reloaded
+  when: ansible_virtualization_type != "docker"

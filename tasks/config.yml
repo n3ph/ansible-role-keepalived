@@ -1,0 +1,24 @@
+---
+
+- tags: config
+  block:
+
+    #------------------------------------------------------------------------------#
+    # render and deploy configs
+    #------------------------------------------------------------------------------#
+
+    - name: config | deploy main config file
+      template:
+        src: keepalived.conf.j2
+        dest: "{{ keepalived_config_dir }}/keepalived.conf"
+      notify: systemd | reload keepalived
+
+    - name: config | copy script files
+      copy:
+        src: "{{ item.value.src }}"
+        dest: "{{ item.value.dest }}"
+        owner: "{{ item.value.owner | default(keepalived_script_user) }}"
+        group: "{{ item.value.group | default(keepalived_script_user) }}"
+        mode: "{{ item.value.mode | default('0750') }}"
+      loop: "{{ query('dict', keepalived_vrrp_script_map) }}"
+      notify: systemd | reload keepalived

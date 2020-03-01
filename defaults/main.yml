@@ -1,0 +1,16 @@
+# defaults file for keepalived
+---
+
+keepalived_config_dir: /etc/keepalived
+
+keepalived_script_user: root
+keepalived_enable_script_security: true
+
+keepalived_notification_email: ['root@localhost.localdomain']
+keepalived_notification_email_from: 'root@{{ inventory_hostname }}'
+keepalived_smtp_server: '127.0.0.1'
+keepalived_smtp_connect_timeout: 30
+
+keepalived_vrrp_script_map: {}
+keepalived_vrrp_scripts: {}
+keepalived_vrrp_instances: {}
